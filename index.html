@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Demo Restaurant — Premium Dining</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf6ef; --cream2:#f2ecdf; --ink:#1c1a16; --green:#1f4033; --green2:#2c5a48;
+  --gold:#b98a2f; --gold2:#d9b25f; --muted:#7a7264; --line:rgba(185,138,47,.22); --card:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-Demo:'Poppins',sans-serif;overflow-x:hidden}
+h1,h2,h3,.serif{font-Demo:'Playfair Display',serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:60px 0}
+
+/* Top Strip */
+.strip-top{background:var(--green);color:#e9e2d2;text-align:center;font-size:12px;letter-spacing:1.5px;padding:8px 14px;text-transform:uppercase}
+
+/* Header */
+header.header-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,246,239,.96);backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(28,26,22,.06)}
+.header-in{display:flex;align-items:center;justify-content:center;height:70px}
+.logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);line-height:1}
+.logo i{font-style:italic;color:var(--gold)}
+
+/* Hero Section */
+.hero{min-height:85vh;display:flex;align-items:center;position:relative;padding:120px 0 60px;
+  background:linear-gradient(120deg,rgba(20,40,32,.94) 0%,rgba(28,52,42,.88) 100%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;position:relative;z-index:2}
+.kicker{color:var(--gold2);letter-spacing:3px;font-size:12px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:35px;height:1px;background:var(--gold2)}
+.hero h1{font-size:clamp(34px,4.5vw,62px);line-height:1.15;margin:16px 0;font-weight:700;color:var(--cream)}
+.hero h1 .it{font-style:italic;color:var(--gold2)}
+.hero p{color:rgba(250,246,239,.82);font-size:15px;line-height:1.7;max-width:520px;font-weight:300}
+.hero-cta{display:flex;gap:16px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),#97701f);color:#fff;font-weight:500;padding:12px 28px;border-radius:50px;font-size:14px;transition:.3s;border:none;cursor:pointer}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(185,138,47,.35)}
+.btn.ghost{background:transparent;border:1.5px solid var(--gold2);color:var(--gold2)}
+.btn.ghost:hover{background:var(--gold2);color:var(--ink)}
+
+/* Hero Special Card */
+.hcard{background:rgba(250,246,239,.08);border:1px solid rgba(217,178,95,.3);border-radius:20px;padding:24px;backdrop-filter:blur(8px)}
+.hcard .tag{display:inline-block;background:rgba(217,178,95,.2);color:var(--gold2);font-size:10px;padding:4px 12px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.hcard .dish{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed rgba(217,178,95,.25);padding:10px 0}
+.hcard .dish:last-child{border:none}
+.hcard h3{font-size:14.5px;font-weight:600;color:var(--cream)}
+.hcard small{color:rgba(250,246,239,.6);font-size:11.5px;font-weight:300}
+.hcard .price{color:var(--gold2);font-family:'Playfair Display',serif;font-size:15px;font-weight:600}
+
+/* Section Titles */
+.shead{text-align:center;max-width:600px;margin:0 auto 35px}
+.shead .kicker{justify-content:center;color:var(--gold)}
+.shead h2{font-size:clamp(26px,3vw,38px);margin:8px 0;color:var(--ink)}
+.shead p{color:var(--muted);font-weight:300;font-size:14px}
+
+/* About Section */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-img-wrap{border-radius:20px;overflow:hidden;box-shadow:0 16px 36px rgba(28,26,22,.12);border:2px solid var(--line);max-height:400px}
+.about-img-wrap img{width:100%;height:100%;object-fit:cover}
+
+/* Signature Items Grid (2 Items) */
+.sig-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:900px;margin:0 auto}
+.sig{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:.3s}
+.sig:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(28,26,22,.08)}
+.sig .img-box{aspect-ratio:16/10;background:#efe6d2;overflow:hidden}
+.sig .img-box img{width:100%;height:100%;object-fit:cover}
+.sig .body{padding:20px;display:flex;flex-direction:column;flex:1}
+.sig .body small{color:var(--gold);letter-spacing:1px;text-transform:uppercase;font-size:10px;font-weight:600}
+.sig h3{font-size:18px;margin:4px 0 6px}
+.sig p{font-size:13px;color:var(--muted);font-weight:300;flex:1}
+.sig .pr{margin-top:14px;font-family:'Playfair Display',serif;font-size:16px;color:var(--green);font-weight:600}
+
+/* Menu Section */
+#menu{background:var(--cream2)}
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+.tab{padding:8px 18px;border-radius:50px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:.3s;font-family:'Poppins',sans-serif}
+.tab.active{background:var(--green);color:var(--cream);border-color:var(--green);font-weight:500}
+
+/* Clean Menu Table Layout */
+.menu-table{width:100%;border-collapse:collapse;margin-top:10px}
+.menu-table th{text-align:left;padding:12px 14px;color:var(--gold);font-size:13px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid var(--line)}
+.menu-table th.num{text-align:right}
+.menu-table td{padding:12px 14px;border-bottom:1px solid rgba(28,26,22,.06);font-size:14px;color:var(--ink)}
+.menu-table td.num{text-align:right;font-family:'Playfair Display',serif;font-weight:600;color:var(--green);font-size:15px}
+
+/* Contact Section */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.crow{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px}
+.crow .ic{font-size:20px}
+.crow b{display:block;font-size:14.5px;color:var(--ink)}
+.crow span{color:var(--muted);font-size:13px;font-weight:300}
+.crow a{color:var(--gold);text-decoration:underline}
+.map-box{border-radius:18px;border:1px solid var(--line);min-height:280px;background:linear-gradient(150deg,#efe6d2,#e2d5ba);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:24px}
+
+/* Floating WhatsApp Button */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:150;background:#25d366;color:#fff;font-weight:600;padding:12px 22px;border-radius:50px;font-size:13.5px;box-shadow:0 10px 25px rgba(0,0,0,.25);display:flex;align-items:center;gap:8px}
+
+/* Footer */
+footer{background:var(--ink);color:var(--muted);padding:36px 0 20px;text-align:center}
+footer .logo{color:var(--cream);font-size:24px}
+footer p{font-size:12px;margin-top:6px}
+
+/* Responsive */
+@media(max-width:850px){
+  .hero .wrap,.about-grid,.ct-grid{grid-template-columns:1fr}
+  .sig-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="strip-top">✦ Demo Restaurant &nbsp;·&nbsp; Pure Veg &amp; Delicious Multi-Cuisine ✦</div>
+
+<!-- HEADER -->
+<header class="header-bar">
+  <div class="wrap header-in">
+    <a href="#" class="logo"> A <i>Demo</i> Restaurant</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Welcome to Quality Dining</div>
+      <h1>Where Flavours<br>Bring Families<br><span class="it">Together.</span></h1>
+      <p>Enjoy rich multi-cuisine delicacies, fresh ingredients, and honest hospitality prepared daily for your family.</p>
+      <div class="hero-cta">
+        <a href="#menu" class="btn">Explore Menu</a>
+        <a href="https://wa.me/919818082060?text=Hello%20Sona's%20Restaurant!%20I%20want%20to%20inquire/order." target="_blank" class="btn ghost">💬 WhatsApp Us</a>
+      </div>
+    </div>
+    
+    <!-- Hero Card -->
+    <div class="hcard">
+      <span class="tag">✦ Chef's Specials</span>
+      <div class="dish"><div><h3>Paneer Butter Masala</h3><small>Silky Makhani Blend</small></div><span class="price">₹150 / ₹270</span></div>
+      <div class="dish"><div><h3>Dal Makhani</h3><small>Slow simmered rich dal</small></div><span class="price">₹150 / ₹270</span></div>
+      <div class="dish"><div><h3>Special Veg Thali</h3><small>Deluxe Meal with Sweet</small></div><span class="price">₹299</span></div>
+      <div class="dish"><div><h3>Paneer Lababdar</h3><small>Rich Tomato Gravy</small></div><span class="price">₹150 / ₹270</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION (Building Image Added) -->
+<section>
+  <div class="wrap about-grid">
+    <div class="about-img-wrap">
+      <!-- Direct link to uploaded building photo -->
+<img src="restaurant.jpg" alt="Demo Restaurant Building">
+      
+      
+    </div>
+    <div>
+      <div class="kicker">OUR STORY</div>
+      <h2 style="margin:10px 0 16px;">A space where every meal is special</h2>
+      <p style="color:var(--muted); line-height:1.7; font-size:14px;">At Sona's Family Restaurant, we believe that good food makes the best memories. From tandoori breads to slow-cooked gravies, every dish is prepared fresh using authentic spices and top-quality ingredients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALS / SIGNATURE SECTION (Updated with exact image filenames) -->
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="kicker">Chef's Highlights</div>
+      <h2>Popular Dishes</h2>
+    </div>
+    <div class="sig-grid">
+      <div class="sig">
+        <div class="img-box">
+<img src="paneer-butter.jpg" alt="Paneer Butter Masala">
+          
+        </div>
+        <div class="body">
+          <small>Most Popular</small>
+          <h3>Paneer Butter Masala</h3>
+          <p>Rich tomato-makhani gravy with soft paneer cubes and fresh butter.</p>
+          <div class="pr">Half: ₹150 | Full: ₹270</div>
+        </div>
+      </div>
+      <div class="sig">
+        <div class="img-box">
+          <img src="veg-thali.jpg" alt="Special Veg Thali">
+          
+        </div>
+        <div class="body">
+          <small>Complete Meal</small>
+          <h3>Special Veg Thali</h3>
+          <p>Paneer gravy, Dal, Rice, Butter Rotis, Fresh Salad &amp; Sweet.</p>
+          <div class="pr">Full: ₹299</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU SECTION -->
+<section id="menu">
+  <div class="wrap">
+    <div class="shead">
+      <div class="kicker">Our Menu</div>
+      <h2>Fresh Flavours &amp; Honest Prices</h2>
+    </div>
+    
+    <div class="tabs">
+      <button class="tab active" data-cat="main">Main Course</button>
+      <button class="tab" data-cat="starters">Starters &amp; Tandoor</button>
+      <button class="tab" data-cat="chinese">Chinese &amp; Momos</button>
+      <button class="tab" data-cat="breads">Breads &amp; Rice</button>
+      <button class="tab" data-cat="drinks">Drinks &amp; Desserts</button>
+    </div>
+
+    <!-- Table Header with Half & Full Columns -->
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th class="num">Half</th>
+          <th class="num">Full</th>
+        </tr>
+      </thead>
+      <tbody id="menuBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact">
+  <div class="wrap ct-grid">
+    <div>
+      <div class="kicker">Information</div>
+      <h2 style="margin:10px 0 20px">Visit Sona's Restaurant</h2>
+      
+      <div class="crow">
+        <div class="ic">📍</div>
+        <div>
+          <b>Address / Location</b>
+          <span>Demo Restaurant — <a href="https://maps.app.goo.Zt7" target="_blank">View on Google Maps</a></span>
+        </div>
+      </div>
+
+      <div class="crow">
+        <div class="ic">🕐</div>
+        <div>
+          <b>Opening Hours</b>
+          <span>Open Daily: 11:00 AM – 10:30 PM</span>
+        </div>
+      </div>
+
+      <div class="crow">
+        <div class="ic">📞</div>
+        <div>
+          <b>Call / WhatsApp Order</b>
+          <span><a href="https://wa.me/919818082060" target="_blank">+91 98118 36795</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-box">
+      <div style="font-size:44px">📍</div>
+      <p style="color:#6b6152;font-size:15px;"><b>Sona's Family Restaurant</b></p>
+      <a href="https://maps.app.goo.gl/rPhCwM69rPdv9WZt7" target="_blank" class="btn">Get Directions on Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="logo">Sona's <i>Family</i> Restaurant</div>
+    <p>© 2026 Demo Restaurant. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a href="https://wa.me/919818082060?text=Hello%20Sona's%20Restaurant!%20I%20want%20to%20place%20an%20order." class="wa-float" target="_blank">
+  💬 WhatsApp Us
+</a>
+
+<script>
+/* MENU DATA WITH EXACT PRICING */
+const MENU_DATA = {
+  main: [
+    { name:"Dal Makhani", half:"₹150", full:"₹270" },
+    { name:"Dal Tadka Double Fry", half:"₹110", full:"₹190" },
+    { name:"Dhaba Dal", half:"₹120", full:"₹210" },
+    { name:"Paneer Butter Masala", half:"₹150", full:"₹270" },
+    { name:"Paneer Lababdar", half:"₹150", full:"₹270" },
+    { name:"Sahi Paneer", half:"₹150", full:"₹270" },
+    { name:"Kadhai Paneer", half:"₹150", full:"₹270" },
+    { name:"Palak Paneer", half:"₹150", full:"₹270" },
+    { name:"Paneer Banjara Masala", half:"₹150", full:"₹270" },
+    { name:"Mix Veg Jalfrezi", half:"₹150", full:"₹270" },
+    { name:"Kadai Soya Chaap", half:"₹150", full:"₹270" },
+    { name:"Veg Thali", half:"-", full:"₹199" },
+    { name:"Special Thali", half:"-", full:"₹299" }
+  ],
+  starters: [
+    { name:"Classic Paneer Tikka", half:"-", full:"₹250" },
+    { name:"Malai Paneer Tikka", half:"-", full:"₹270" },
+    { name:"Achari Paneer Tikka", half:"-", full:"₹250" },
+    { name:"Tandoori Soya Chaap", half:"-", full:"₹230" },
+    { name:"Tandoori Mushroom", half:"-", full:"₹250" },
+    { name:"Veg Seekh Kabab", half:"-", full:"₹230" },
+    { name:"Hara Bhara Kabab", half:"-", full:"₹250" },
+    { name:"French Fries", half:"-", full:"₹90" },
+    { name:"Masala Papad", half:"-", full:"₹50" }
+  ],
+  chinese: [
+    { name:"Chilly Paneer Dry/Gravy", half:"₹270", full:"₹300" },
+    { name:"Veg Manchurian Dry/Gravy", half:"₹170", full:"₹200" },
+    { name:"Hakka Noodles", half:"-", full:"₹170" },
+    { name:"Chilly Garlic Noodles", half:"-", full:"₹170" },
+    { name:"Paneer Garlic Noodles", half:"-", full:"₹190" },
+    { name:"Steam Veg Momos", half:"-", full:"₹150" },
+    { name:"Kurkure Veg Momos", half:"-", full:"₹150" },
+    { name:"Steam Paneer Momos", half:"-", full:"₹180" }
+  ],
+  breads: [
+    { name:"Tawa Plain Roti", half:"-", full:"₹10" },
+    { name:"Tawa Butter Roti", half:"-", full:"₹12" },
+    { name:"Tandoori Plain Roti", half:"-", full:"₹10" },
+    { name:"Tandoori Butter Roti", half:"-", full:"₹12" },
+    { name:"Plain Naan", half:"-", full:"₹40" },
+    { name:"Butter Naan", half:"-", full:"₹45" },
+    { name:"Garlic Naan", half:"-", full:"₹65" },
+    { name:"Laccha Paratha", half:"-", full:"₹45" },
+    { name:"Steam Basmati Rice", half:"-", full:"₹130" },
+    { name:"Jeera Rice", half:"-", full:"₹140" },
+    { name:"Veg Dum Biryani", half:"-", full:"₹210" },
+    { name:"Paneer Biryani", half:"-", full:"₹230" }
+  ],
+  drinks: [
+    { name:"Virgin Mojito", half:"-", full:"₹99" },
+    { name:"Blue Lagoon", half:"-", full:"₹99" },
+    { name:"Fresh Lime Soda", half:"-", full:"₹59" },
+    { name:"KitKat Shake", half:"-", full:"₹99" },
+    { name:"Oreo Shake", half:"-", full:"₹99" },
+    { name:"Creamy Cold Coffee", half:"-", full:"₹99" },
+    { name:"Gulab Jamun (2 Pcs)", half:"-", full:"₹99" }
+  ]
+};
+
+const tbody = document.getElementById('menuBody');
+function renderMenu(category){
+  tbody.innerHTML = MENU_DATA[category].map(item => `
+    <tr>
+      <td><b>${item.name}</b></td>
+      <td class="num">${item.half}</td>
+      <td class="num">${item.full}</td>
+    </tr>
+  `).join('');
+}
+
+renderMenu('main');
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelector('.tab.active').classList.remove('active');
+    tab.classList.add('active');
+    renderMenu(tab.dataset.cat);
+  });
+});
+</script>
+</body>
+</html>
